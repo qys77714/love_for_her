@@ -2,14 +2,17 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>仙剑奇侠的专属浪漫</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给我的仙剑奇霞</title>
     <style>
-        /* --- 页面基础样式 --- */
+        /* --- 1. 动态梦幻背景 --- */
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+            /* 更加粉嫩梦幻的动态渐变 */
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             height: 100vh;
             overflow: hidden;
             font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
@@ -17,11 +20,17 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: white;
-            position: relative;
+            color: #fff;
+            user-select: none; /* 禁止选中文字，防止破坏美感 */
         }
 
-        /* --- 背景爱心雨容器 --- */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 2. 爱心雨图层 --- */
         .heart-rain {
             position: absolute;
             top: 0;
@@ -32,109 +41,214 @@
             z-index: 0;
         }
 
-        /* --- 主内容卡片 --- */
+        /* --- 3. 主卡片（磨砂玻璃质感升级） --- */
         .container {
-            z-index: 1;
+            z-index: 2;
             text-align: center;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 30px 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            width: 80%;
-            max-width: 400px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px 30px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            width: 85%;
+            max-width: 380px;
+            animation: float 6s ease-in-out infinite; /* 卡片轻轻浮动 */
         }
 
-        /* --- CP名字样式 --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- 标题样式 --- */
         h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 1.8rem;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+        }
+        .sub-title {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 15px;
         }
 
-        /* --- 跳动的大爱心 --- */
-        .big-heart {
-            font-size: 4rem;
-            margin: 20px 0;
-            animation: beat 1s infinite alternate;
+        /* --- 头像样式（带呼吸和交互） --- */
+        .profile-wrapper {
+            position: relative;
             display: inline-block;
+            cursor: pointer;
+        }
+        
+        .profile-img {
+            width: 120px; /* 稍微调大一点 */
+            height: 120px;
+            border-radius: 50%;
+            margin: 10px 0;
+            border: 4px solid rgba(255,255,255,0.8);
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.8);
+            object-fit: cover;
+            animation: breathe 3s infinite ease-in-out; /* 呼吸效果 */
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes beat {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.2); }
+        .profile-img:active {
+            transform: scale(0.9) rotate(-10deg);
+        }
+
+        .click-hint {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: -10px;
+            margin-bottom: 15px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 182, 193, 0.6); }
+            50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(255, 182, 193, 1); }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* --- 甜言蜜语弹窗气泡 --- */
+        .sweet-bubble {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: #fff;
+            color: #ff6b81;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        .sweet-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+        .sweet-bubble.show {
+            transform: translateX(-50%) scale(1);
         }
 
         /* --- 计时器样式 --- */
         .timer-box {
-            margin: 20px 0;
-            font-size: 1.1rem;
-            line-height: 1.8;
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
         }
-        .timer-box span {
-            font-weight: bold;
-            font-size: 1.4rem;
-            color: #fff0f5;
-        }
-
-        /* --- 告白文字 --- */
-        .message {
+        .timer-box p {
+            margin: 0;
             font-size: 1rem;
+            color: #eee;
+        }
+        .count-num {
+            font-family: 'Courier New', Courier, monospace; /* 更有数字感 */
+            font-weight: bold;
+            font-size: 1.6rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            margin: 0 3px;
+        }
+
+        /* --- 底部文字 --- */
+        .message {
             margin-top: 20px;
-            opacity: 0.9;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #fff;
         }
 
-        /* --- 飘落爱心的样式 --- */
-        .falling-heart {
+        /* --- 点击特效的小爱心 --- */
+        .click-heart {
             position: absolute;
-            top: -10%;
-            color: rgba(255, 255, 255, 0.6);
-            animation: fall linear infinite;
+            width: 20px;
+            height: 20px;
+            background: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 32 29.6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M23.6 0c-3.4 0-6.3 2.7-7.6 5.6C14.7 2.7 11.8 0 8.4 0 3.8 0 0 3.8 0 8.4c0 9.4 9.5 11.9 16 21.2 6.1-9.3 16-11.8 16-21.2C32 3.8 28.2 0 23.6 0z' fill='%23ffeb3b'/%3E") no-repeat center/contain;
+            pointer-events: none;
+            animation: popUp 0.8s ease-out forwards;
+            z-index: 100;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        @keyframes popUp {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -150%) scale(1.5); opacity: 0; }
         }
+
+        /* --- 背景飘落元素 --- */
+        .falling-item {
+            position: absolute;
+            top: -10vh;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(720deg); }
+        }
+
     </style>
 </head>
 <body>
 
-    <!-- 背景爱心雨 -->
-    <div class="heart-rain" id="heartRain"></div>
+    <!-- 背景特效容器 -->
+    <div class="heart-rain" id="bgEffect"></div>
 
-    <!-- 主要内容区域 -->
+    <!-- 主要内容卡片 -->
     <div class="container">
-        <h1>❤️ 仙剑奇霞 ❤️</h1>
+        <h1>⚔️ 仙剑奇霞 🧚‍♀️</h1>
+        <div class="sub-title">Thinking of you...</div>
         
-        <img src="pic.jpg" style="width:100px; border-radius:50%; margin:20px 0;">
+        <!-- 头像区域：点击有互动 -->
+        <div class="profile-wrapper" onclick="clickPhoto()">
+            <div class="sweet-bubble" id="bubble">戳我干嘛？爱你哟！</div>
+            <img src="pic.jpg" class="profile-img" alt="Our Photo">
+            <div class="click-hint">👆 轻轻戳一下照片 👆</div>
+        </div>
 
         <div class="timer-box">
-            我们已经相爱了<br>
-            <span id="days">0</span> 天 
-            <span id="hours">0</span> 小时 <br>
-            <span id="minutes">0</span> 分 
-            <span id="seconds">0</span> 秒
+            <p>我们相恋了</p>
+            <div style="margin-top: 10px;">
+                <span class="count-num" id="days">0</span> <span style="font-size:0.8rem">天</span>
+                <span class="count-num" id="hours">0</span> <span style="font-size:0.8rem">时</span>
+            </div>
+            <div style="margin-top: 5px;">
+                <span class="count-num" id="minutes">0</span> <span style="font-size:0.8rem">分</span>
+                <span class="count-num" id="seconds">0</span> <span style="font-size:0.8rem">秒</span>
+            </div>
         </div>
 
         <div class="message">
-            从2024年2月28日那天起，<br>
-            我的世界因为有你而变得粉红。<br>
-            未来的每一天，<br>
-            我都想和你一起度过~<br>
-            爱你！
+            从 2024.02.28 那个心动的日子起<br>
+            你的名字就刻在了我的心底<br>
+            无论江湖多远，有你便是晴天<br>
+            永远做你的大侠，永远守护你 🌹
         </div>
     </div>
 
     <script>
-        // --- 1. 恋爱计时器逻辑 ---
-        const startDate = new Date("2024-02-28T00:00:00"); // 设置恋爱开始时间
+        // --- 1. 恋爱计时器 ---
+        const startDate = new Date("2024-02-28T00:00:00");
 
         function updateTimer() {
             const now = new Date();
-            const diff = now - startDate; // 毫秒差
+            const diff = now - startDate;
 
             if (diff > 0) {
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -142,37 +256,110 @@
                 const minutes = Math.floor((diff / (1000 * 60)) % 60);
                 const seconds = Math.floor((diff / 1000) % 60);
 
+                // 补零逻辑，让数字更好看
                 document.getElementById("days").innerText = days;
-                document.getElementById("hours").innerText = hours;
-                document.getElementById("minutes").innerText = minutes;
-                document.getElementById("seconds").innerText = seconds;
+                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            }
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- 2. 照片互动逻辑（甜言蜜语库） ---
+        const sentences = [
+            "超级超级喜欢你！💕",
+            "你是我的心动女嘉宾 🌹",
+            "想陪你吃好多好多顿饭 🍜",
+            "仙剑奇侠只守护仙剑奇霞 ⚔️",
+            "抱抱你！(づ｡◕‿‿◕｡)づ",
+            "今天也是想你的一天 ☁️",
+            "你的笑容最甜啦 🍬"
+        ];
+
+        function clickPhoto() {
+            const bubble = document.getElementById("bubble");
+            const img = document.querySelector(".profile-img");
+            
+            // 随机选一句话
+            const text = sentences[Math.floor(Math.random() * sentences.length)];
+            bubble.innerText = text;
+            
+            // 显示气泡
+            bubble.classList.add("show");
+            
+            // 照片旋转一下
+            img.style.transform = "rotate(15deg) scale(1.1)";
+            setTimeout(() => img.style.transform = "rotate(0deg) scale(1.05)", 300);
+
+            // 2秒后隐藏气泡
+            setTimeout(() => {
+                bubble.classList.remove("show");
+            }, 2000);
+            
+            // 触发一次烟花
+            createParticles(window.innerWidth/2, window.innerHeight/2 - 100);
+        }
+
+        // --- 3. 全屏点击特效（爱心烟花） ---
+        document.addEventListener('click', function(e) {
+            createParticles(e.clientX, e.clientY);
+        });
+
+        function createParticles(x, y) {
+            const colors = ['#ff9a9e', '#fad0c4', '#ffecd2', '#fcb69f', '#fffff'];
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('click-heart');
+                
+                // 随机颜色
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                // 替换SVG颜色（简单处理，或者直接用字符）
+                heart.style.fontSize = Math.random() * 20 + 10 + "px";
+                heart.innerText = ['❤', '💖', '✨', '🌸'][Math.floor(Math.random()*4)];
+                heart.style.color = color;
+                heart.style.background = 'none'; // 覆盖上面的CSS背景图
+                
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                
+                // 随机散开方向
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 100 + 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity - 50; // 稍微向上飘
+                
+                heart.animate([
+                    { transform: 'translate(-50%, -50%) scale(0.5)', opacity: 1 },
+                    { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 800 + Math.random() * 400,
+                    easing: 'cubic-bezier(0, .9, .57, 1)',
+                    fill: 'forwards'
+                });
+
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1200);
             }
         }
 
-        setInterval(updateTimer, 1000); // 每秒刷新一次
-        updateTimer(); // 初始化执行一次
-
-        // --- 2. 满屏爱心雨特效 ---
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("falling-heart");
-            heart.innerHTML = "❤";
+        // --- 4. 背景自动飘落装饰 ---
+        function createFallingItem() {
+            const item = document.createElement("div");
+            item.classList.add("falling-item");
+            item.innerText = ['☁️', '❤', '🌸', '✨'][Math.floor(Math.random()*4)];
             
-            // 随机位置、大小、动画时长
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 20 + 10 + "px";
-            heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // 2~5秒飘落时间
+            item.style.left = Math.random() * 100 + "vw";
+            item.style.fontSize = Math.random() * 20 + 15 + "px";
+            item.style.opacity = Math.random() * 0.5 + 0.3;
+            item.style.animationDuration = Math.random() * 5 + 5 + "s";
             
-            document.getElementById("heartRain").appendChild(heart);
+            document.getElementById("bgEffect").appendChild(item);
 
-            // 动画结束后移除元素，防止页面卡顿
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
+            setTimeout(() => item.remove(), 10000);
         }
+        setInterval(createFallingItem, 800);
 
-        // 每300毫秒生成一个爱心
-        setInterval(createHeart, 300);
     </script>
 </body>
 </html>
