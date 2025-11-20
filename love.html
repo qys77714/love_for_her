@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仙剑奇侠的专属浪漫</title>
+    <style>
+        /* --- 页面基础样式 --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+            height: 100vh;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        /* --- 背景爱心雨容器 --- */
+        .heart-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- 主内容卡片 --- */
+        .container {
+            z-index: 1;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        /* --- CP名字样式 --- */
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* --- 跳动的大爱心 --- */
+        .big-heart {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: beat 1s infinite alternate;
+            display: inline-block;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+
+        /* --- 计时器样式 --- */
+        .timer-box {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .timer-box span {
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: #fff0f5;
+        }
+
+        /* --- 告白文字 --- */
+        .message {
+            font-size: 1rem;
+            margin-top: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* --- 飘落爱心的样式 --- */
+        .falling-heart {
+            position: absolute;
+            top: -10%;
+            color: rgba(255, 255, 255, 0.6);
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景爱心雨 -->
+    <div class="heart-rain" id="heartRain"></div>
+
+    <!-- 主要内容区域 -->
+    <div class="container">
+        <h1>❤️ 仙剑奇霞 ❤️</h1>
+        
+        <div class="big-heart">💖</div>
+
+        <div class="timer-box">
+            我们已经相爱了<br>
+            <span id="days">0</span> 天 
+            <span id="hours">0</span> 小时 <br>
+            <span id="minutes">0</span> 分 
+            <span id="seconds">0</span> 秒
+        </div>
+
+        <div class="message">
+            从2024年2月28日那天起，<br>
+            我的世界因为有你而变得粉红。<br>
+            未来的每一天，<br>
+            我都想和你一起度过~<br>
+            爱你！
+        </div>
+    </div>
+
+    <script>
+        // --- 1. 恋爱计时器逻辑 ---
+        const startDate = new Date("2024-02-28T00:00:00"); // 设置恋爱开始时间
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate; // 毫秒差
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
+            }
+        }
+
+        setInterval(updateTimer, 1000); // 每秒刷新一次
+        updateTimer(); // 初始化执行一次
+
+        // --- 2. 满屏爱心雨特效 ---
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("falling-heart");
+            heart.innerHTML = "❤";
+            
+            // 随机位置、大小、动画时长
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s"; // 2~5秒飘落时间
+            
+            document.getElementById("heartRain").appendChild(heart);
+
+            // 动画结束后移除元素，防止页面卡顿
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // 每300毫秒生成一个爱心
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
